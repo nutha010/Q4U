@@ -1,0 +1,138 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: 'AWS::Serverless-2016-10-31'
+Parameters:
+  DomainName:
+    Type: String
+    Description: The DNS name of an existing Amazon Route 53 hosted zone e.g. jevsejev.io
+    AllowedPattern: '(?!-)[a-zA-Z0-9-.]{1,63}(?<!-)'
+    ConstraintDescription: must be a valid DNS zone name.
+  ZoneId:
+    Type: String
+    Description: ID of the hosted domain
+  FullDomainName:
+    Type: String
+    Description: The full domain name e.g. www.jevsejev.io
+    AllowedPattern: '(?!-)[a-zA-Z0-9-.]{1,63}(?<!-)'
+    ConstraintDescription: must be a valid DNS zone name.
+  ApiDomainName:
+    Type: String
+    Description: The domain name of the API domain
+    AllowedPattern: '(?!-)[a-zA-Z0-9-.]{1,63}(?<!-)'
+    ConstraintDescription: must be a valid DNS zone name.
+Resources:
+  # Common Resources
+  CMC4B1S3:
+    Type: 'AWS::CertificateManager::Certificate'
+    Properties:
+      DomainName: !Ref FullDomainName
+      ValidationMethod: DNS
+
+  # Static (React) site
+  StaticSiteBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Ref FullDomainName
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: 404.html
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 85f64e2b-d07d-494b-8682-26fbcfbca59f
+    DeletionPolicy: Retain
+  StaticSiteCDN:
+    Type: 'AWS::CloudFront::Distribution'
+    Properties:
+      DistributionConfig:
+        Aliases:
+          - !Ref FullDomainName
+        Comment: CDN for ReactJS Web App
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+        DefaultRootObject: index.html
+        Enabled: 'no'
+        PriceClass: PriceClass_100
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          Compress: true
+          TargetOriginId: S3Origin
+          ForwardedValues:
+            QueryString: true
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+        Origins:
+          - DomainName: !Ref FullDomainName
+            Id: S3Origin
+            CustomOriginConfig:
+              HTTPPort: '80'
+              HTTPSPort: '443'
+              OriginProtocolPolicy: http-only
+        ViewerCertificate:
+          AcmCertificateArn: !Ref CMC4B1S3
+          SslSupportMethod: sni-only
+    DependsOn:
+      - StaticSiteBucket
+  WebsiteDNSRecords:
+    Type: 'AWS::Route53::RecordSetGroup'
+    Properties:
+      HostedZoneId: !Ref ZoneId
+      RecordSets:
+        - Name: !Ref FullDomainName
+          Type: A
+          AliasTarget: !Ref FullDomainName
+
+  # Backend functions
+  ApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      Cors:
+        AllowOrigin: !Ref StaticSiteCDN
+      Domain:
+        CertificateArn: !Ref CMC4B1S3
+        DomainName: !Ref ApiDomainName
+      StageName: Dev
+
+  ExampleApiFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Runtime: python3.8
+      Role: !Ref ApiExecutionRole
+      Handler: example.main_handler
+      CodeUri: example_function
+      Description: An example API function to use as a base for additional functions
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Method: get
+            Path: /example/{param}
+            RestApiId: !Ref ApiGateway
+
+  ApiDNSRecords:
+    Type: 'AWS::Route53::RecordSetGroup'
+    Properties:
+      HostedZoneId: !Ref ZoneId
+      RecordSets:
+        - Name: !Ref ApiDomainName
+          Type: A
+          AliasTarget:
+            DNSName: !Ref ApiDomainName
+
+  ApiExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+
+Outputs:
+  StaticSiteBucket:
+    Value: !Ref StaticSiteBucket
+  ApiGateway:
+    Value: !Ref ApiGateway
+  CDN:
+    Value: !Ref StaticSiteCDN
