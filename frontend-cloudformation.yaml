@@ -1,0 +1,93 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  DomainName:
+    Type: String
+    Description: The DNS name of an existing Amazon Route 53 hosted zone e.g. jevsejev.io
+    AllowedPattern: '(?!-)[a-zA-Z0-9-.]{1,63}(?<!-)'
+    ConstraintDescription: must be a valid DNS zone name.
+  ZoneId:
+    Type: String
+    Description: ID of the hosted domain
+  FullDomainName:
+    Type: String
+    Description: The full domain name e.g. www.jevsejev.io
+    AllowedPattern: '(?!-)[a-zA-Z0-9-.]{1,63}(?<!-)'
+    ConstraintDescription: must be a valid DNS zone name.
+  UseRoute53:
+    Type: String
+    AllowedValues: ['true', 'false']
+Conditions:
+  CreateRoute53Resources: !Equals [ !Ref UseRoute53, true ]
+Resources:
+  StaticSiteBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Ref FullDomainName
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: 404.html
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 85f64e2b-d07d-494b-8682-26fbcfbca59f
+  StaticSiteCDN:
+    Type: 'AWS::CloudFront::Distribution'
+    Properties:
+      DistributionConfig:
+        Aliases:
+          - !Ref FullDomainName
+        Comment: CDN for ReactJS Web App
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+        DefaultRootObject: index.html
+        Enabled: false
+        PriceClass: PriceClass_100
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          Compress: true
+          TargetOriginId: S3Origin
+          ForwardedValues:
+            QueryString: true
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+        Origins:
+          - DomainName: !Ref FullDomainName
+            Id: S3Origin
+            CustomOriginConfig:
+              HTTPPort: '80'
+              HTTPSPort: '443'
+              OriginProtocolPolicy: http-only
+        ViewerCertificate:
+          AcmCertificateArn: !Ref WebsiteCertificate
+          SslSupportMethod: sni-only
+    DependsOn:
+      - StaticSiteBucket
+  WebsiteDNSRecords:
+    Type: AWS::Route53::RecordSetGroup
+    Condition: CreateRoute53Resources
+    Properties:
+      HostedZoneId:
+        Ref: ZoneId
+      RecordSets:
+        - Name:
+            Ref: FullDomainName
+          Type: A
+          AliasTarget:
+            HostedZoneId: !Ref ZoneId
+            DNSName:
+              !GetAtt StaticSiteCDN.DomainName
+  WebsiteCertificate:
+    Type: 'AWS::CertificateManager::Certificate'
+    Properties:
+      DomainName: !Ref FullDomainName
+      ValidationMethod: DNS
+Outputs:
+  StaticSiteBucket:
+    Value: !Ref StaticSiteBucket
+  CDN:
+    Value: !Ref StaticSiteCDN
