@@ -2,11 +2,15 @@
 
 A virtual grocery store ticket queue system designed to minimize human contact and waiting times outside grocery stores. 
 
-## [Backend application](backend/README.md)
+## [Backend Application](backend/README.md)
 
 Infrastruture is created using the Serverless Application Model (SAM) which simplifies AWS infrastructure creation and maintenance.
 
 The frontend application is provided by using static hosting based on S3 and CloudFront.
+
+## [Frontend Application](frontend/README.md)
+
+The frontend is constructed with ReactJS, Redux and Bootstrap 4.
 
 ## Frontend Infrastructure
 
