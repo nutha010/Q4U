@@ -6,14 +6,14 @@ This project is built with ReactJS using the `create-react-app` boilerplate.
 
 ## Components
 
-Components belong in the [`/src/Components`](/src/Components) folder. You can define components with either the
+Components belong in the [`/src/Components`](src/Components) folder. You can define components with either the
 functional or class-based paradigms, but functional components are preferred.
 
 ** If a component has associated styles please make a sub-folder for that component file (JS, JSX) along with its stylesheet (CSS) **
 
 ## Making a Page
 
-Pages (or more accurately: React components that are being used do describe pages) belong in the [`/src/Views`](/src/Views) folder.
+Pages (or more accurately: React components that are being used do describe pages) belong in the [`/src/Views`](src/Views) folder.
 
 ### Each Page must contain
 
@@ -27,7 +27,7 @@ We are using the [Reach Router](https://reach.tech/router). If you are familiar 
 
 ### Layout
 
-The [`/src/App.js`](/src/App.js) file already wraps the website in a Container so you only have to worry about internal Rows and Columns. The documentation for this can be [found here](https://react-bootstrap.github.io/layout/grid/).
+The [`/src/App.js`](src/App.js) file already wraps the website in a Container so you only have to worry about internal Rows and Columns. The documentation for this can be [found here](https://react-bootstrap.github.io/layout/grid/).
 
 ### Components
 
