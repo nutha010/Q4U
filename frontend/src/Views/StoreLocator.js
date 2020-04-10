@@ -3,14 +3,14 @@ import {Link} from '@reach/router'
 import SEO from "../Components/SEO";
 import StoreSearch from "../Components/StoreSearch/StoreSearch";
 
-export default function Page2 () {
+export default function StoreLocator () {
     return (
         <>
             <SEO
-                title="Page 2"
-                desc="This is the second page of the Q4U website!"
+                title="Store Locator"
+                desc="Find a Q4U participant store near you."
             />
-            <h1>Page 2</h1>
+            <StoreSearch />
             <Link to="/">To Home</Link>
         </>
     );
