@@ -12,12 +12,16 @@ import Landing from "./Views/Landing";
 import Page2 from "./Views/Page2";
 import Error from "./Views/Error";
 
+// Components
+import PickupCustomer from "./Components/PickupCustomerForm/PickupCustomerForm";
+
 function App() {
   return (
     <Container className="App">
       <Router>
         <Landing path="/" />
         <Page2 path="/2" />
+        <PickupCustomer path="/pickup" />
         <Error default/>
       </Router>
     </Container>

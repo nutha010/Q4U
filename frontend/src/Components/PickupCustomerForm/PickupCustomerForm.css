@@ -1,0 +1,23 @@
+.row-content {
+    margin:0px auto;
+    padding-bottom: 50px;
+    text-align: center
+}
+
+.form-row-content {
+    margin:0px auto;
+    text-align: center;
+}
+
+.form-label {
+    margin:0px auto;
+    justify-content: left;
+}
+
+.shopping-list {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border-left: 1px solid rgba(160, 160, 160, 0.5); 
+    border-right: 1px solid rgb(160, 160, 160, 0.5); 
+    border-bottom: 1px solid rgb(160, 160, 160, 0.5); 
+}
