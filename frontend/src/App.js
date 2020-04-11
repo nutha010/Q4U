@@ -4,7 +4,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Routing
-import { Router, Link } from "@reach/router"
+import { Router } from "@reach/router"
 
 // Pages
 import Landing from "./Views/Landing";
