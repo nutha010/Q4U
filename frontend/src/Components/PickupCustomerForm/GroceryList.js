@@ -1,6 +1,5 @@
 import React from 'react';
 import './PickupCustomerForm.css';
-import {LocalForm, Control} from 'react-redux-form'; 
 import { findDOMNode } from "react-dom";
 
 import {Container, Row, Col, Label, Button, InputGroup, Table, FormControl} from 'react-bootstrap';
@@ -11,11 +10,12 @@ class GroceryList extends React.Component {
         super(props)
         this.state = {
             newItem: "",
-            currentItems: props.items
+            currentItems: []
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleAddItem = this.handleAddItem.bind(this);
+        this.handleDeleteItem = this.handleDeleteItem.bind(this);
 
         this.scrollableShoppingList = null;
     }
@@ -37,9 +37,9 @@ class GroceryList extends React.Component {
         error.errMessage = "";
 
         // Check for repeats (can make more complex in the future)
-        const repeats = this.state.currentItems.filter(item => item.description === newItem)
+        const repeats = this.state.currentItems.filter(item => item.description.toLowerCase() === newItem.toLowerCase())
         if (repeats.length > 0){
-            error.errMessage = "The item " + newItem + " already exists in your shopping list.";
+            error.errMessage = "The item " + newItem.toLowerCase() + " already exists in your shopping list.";
             error.foundErr = true;
         }
 
@@ -75,13 +75,26 @@ class GroceryList extends React.Component {
         this.props.getListOfItems(newListOfItems);
     }
 
+    handleDeleteItem(id, oldItems){
+        // Find item in the list and delete it
+        // shift ids of all the other items if necessary
+        const newListOfItemsFirstHalf = oldItems.splice(0, id-1);
+        const newListOfItemsSecondHalf = oldItems.splice(1, oldItems.length).map(item => {return { "id": item.id-1, "description": item.description}});
+        const newListOfItems = newListOfItemsFirstHalf.concat(newListOfItemsSecondHalf);
+        this.setState({
+            currentItems: newListOfItems
+        });
+        this.props.getListOfItems(newListOfItems);
+    }
+
     render(){
         const numItems = this.state.currentItems.length;
         const itemsToDisplay = (this.state.currentItems).map((item) => {
             return (
                 <Row key={item.id} className="shopping-list-item">
                     <Col sm={1}>{item.id}.</Col>
-                    <Col sm={11}>{item.description}</Col>
+                    <Col sm={10}>{item.description}</Col>
+                    <Col sm={1}> <Button variant="outline-danger" className="delete-button" onClick={() => this.handleDeleteItem(item.id, this.state.currentItems)}>x</Button></Col>
                 </Row>
             );
         });
@@ -114,7 +127,7 @@ class GroceryList extends React.Component {
                                                 onChange={this.handleChange}
                                                 disabled = {numItems >= 20}
                                                 value={this.state.newItem}
-                                                onKeyPress={(e) => {e.key === "Enter" ? this.handleAddItem(this.state.newItem, this.state.currentItems) : console.log("")}}
+                                                onKeyPress={(e) => { if(e.key === "Enter") { this.handleAddItem(this.state.newItem, this.state.currentItems) }}}
                                             />
                                         </InputGroup>                        
                                     </Col>

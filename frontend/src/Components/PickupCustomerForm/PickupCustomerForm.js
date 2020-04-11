@@ -64,7 +64,6 @@ class PickupForm extends React.Component {
                     </Col>
                     <Col sm={12} >
                         <GroceryList 
-                            items={[{"id": 1, "description": "milk"}, {"id": 2, "description": "orjtyjghjgdhjgdhjgfjghjgfhjghanges"}]}
                             getListOfItems = {this.getListOfItems}
                         />
                     </Col>
