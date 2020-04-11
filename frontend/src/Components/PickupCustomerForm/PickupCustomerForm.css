@@ -1,7 +1,12 @@
-.row-content {
+.content {
     margin:0px auto;
     padding-bottom: 50px;
-    text-align: center
+    text-align: center;
+}
+
+.item {
+    padding-bottom: 30px;
+    padding-top: 20px;
 }
 
 .form-row-content {
@@ -9,15 +14,31 @@
     text-align: center;
 }
 
-.form-label {
-    margin:0px auto;
-    justify-content: left;
+.item-button {
+    justify-content: flex-end;
+    padding-bottom: 20px;
+    padding-top: 20px;
 }
 
-.shopping-list {
-    margin-top: 25px;
-    margin-bottom: 25px;
-    border-left: 1px solid rgba(160, 160, 160, 0.5); 
-    border-right: 1px solid rgb(160, 160, 160, 0.5); 
-    border-bottom: 1px solid rgb(160, 160, 160, 0.5); 
+.next-button {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.existing-items {
+    height: 300px;
+    overflow-y: scroll;
+    display: block;
+}
+
+.shopping-list-table {
+    border: 1px solid lightgrey;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.shopping-list-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
 }
