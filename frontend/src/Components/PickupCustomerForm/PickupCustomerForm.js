@@ -4,6 +4,7 @@ import GroceryList from './GroceryList';
 import OrderInfoCard from './OrderInfoCard';
 import {Container, Row, Col, Button} from 'react-bootstrap';
 import {Label} from 'reactstrap';
+import {Link} from '@reach/router'
 
 const exampleStore = {
     name: "Super Market",
@@ -14,7 +15,7 @@ const exampleStore = {
 
 const exampleTimeslot = '10:00-10:30';
 
-class PickupForm extends React.Component {
+class PickupShoppingList extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -43,6 +44,8 @@ class PickupForm extends React.Component {
         console.log("Shopping List: ");
         console.log(this.state.shoppingList);
         console.log("Any refrigeration items? " + this.state.refrigerated);
+        console.log(this.props.location);
+        //this.props.history.push("pickup-user-info");
     }
 
     render(){
@@ -58,8 +61,8 @@ class PickupForm extends React.Component {
                         <Label htmlFor="pickupList" className="form-row-content">
                             <h4>
                                 <b>What items do you need picked up?</b><br/>
-                                <i>Maximum of 20 items. Specify the quantity for each item.</i>
                             </h4>
+                            <h5><i>Maximum of 20 items. Specify the quantity for each item.</i></h5>
                         </Label>
                     </Col>
                     <Col sm={12} >
@@ -69,7 +72,7 @@ class PickupForm extends React.Component {
                     </Col>
                 </Row>
                 <Row className="item">
-                    <Col sm={12} >
+                    <Col xs={12} >
                         <Label 
                             htmlFor="fridge" 
                             className="form-row-content"
@@ -78,25 +81,31 @@ class PickupForm extends React.Component {
                         </Label>
                     </Col>
 
-                    <Col sm={12}> 
-                        <Container className="offset-sm-6">
+                    <Col xs={12}> 
+                        <Container>
                             <Row>
-                                <input type="radio" className="form-check-input" id="yes" name="fridge" checked={this.state.refrigerated} onChange={() => this.updateRefrigerated(true)}/>
-                                <label for="yes" className="form-check-label">Yes</label> 
+                                <Col className="offset-xs-6">
+                                    <input type="radio" className="form-check-input" id="yes" name="fridge" checked={this.state.refrigerated} onChange={() => this.updateRefrigerated(true)}/>
+                                    <label for="yes" className="form-check-label">Yes</label> 
+                                </Col>
                             </Row>
                             <Row>
-                                <input type="radio" className="form-check-input" id="no" name="fridge" checked={!this.state.refrigerated} onChange={() => this.updateRefrigerated(false)}/>
-                                <label for="no" className="form-check-label">No</label> 
+                                <Col className="offset-xs-6">
+                                    <input type="radio" className="form-check-input" id="no" name="fridge" checked={!this.state.refrigerated} onChange={() => this.updateRefrigerated(false)}/>
+                                    <label for="no" className="form-check-label">No</label> 
+                                </Col>
                             </Row>
                         </Container>
                     </Col>
                 </Row>
                 <Row className="item-button">
-                    <Button className="next-button" onClick={this.handleSubmit}>Next</Button>
+                    <Button className="next-button" onClick={this.handleSubmit}>
+                        <Link to="/pickup-user-info" className="next-button-link">Next</Link>
+                    </Button>
                 </Row>
             </Container>
         );
     }
 }
 
-export default PickupForm;
+export default PickupShoppingList;

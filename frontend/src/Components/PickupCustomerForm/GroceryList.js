@@ -76,8 +76,6 @@ class GroceryList extends React.Component {
     }
 
     handleDeleteItem(id, oldItems){
-        // Find item in the list and delete it
-        // shift ids of all the other items if necessary
         const newListOfItemsFirstHalf = oldItems.splice(0, id-1);
         const newListOfItemsSecondHalf = oldItems.splice(1, oldItems.length).map(item => {return { "id": item.id-1, "description": item.description}});
         const newListOfItems = newListOfItemsFirstHalf.concat(newListOfItemsSecondHalf);
@@ -92,9 +90,9 @@ class GroceryList extends React.Component {
         const itemsToDisplay = (this.state.currentItems).map((item) => {
             return (
                 <Row key={item.id} className="shopping-list-item">
-                    <Col sm={1}>{item.id}.</Col>
-                    <Col sm={10}>{item.description}</Col>
-                    <Col sm={1}> <Button variant="outline-danger" className="delete-button" onClick={() => this.handleDeleteItem(item.id, this.state.currentItems)}>x</Button></Col>
+                    <Col xs={1}>{item.id}.</Col>
+                    <Col xs={10} className="shopping-list-item-description">{item.description}</Col>
+                    <Col><Button variant="outline-danger" className="delete-button" onClick={() => this.handleDeleteItem(item.id, this.state.currentItems)}>x</Button></Col>
                 </Row>
             );
         });
@@ -102,13 +100,17 @@ class GroceryList extends React.Component {
         return (
                 <Container className="item">
                         <Row className="shopping-list-table">
-                            <Col sm={10}><b>Your Shopping List </b></Col>
-                            <Col sm={2}><b>{numItems}/20</b></Col>
+                            <Col xs={9}><b>Your Shopping List </b></Col>
+                            <Col xs={3}><b>{numItems}/20</b></Col>
                         </Row>
                         <Row className="shopping-list-table">
+                            <Col xs={12}>
                             <Container className="existing-items" ref={ref => this.scrollableShoppingList = ref}>
                                 {itemsToDisplay}
                             </Container>
+                            </Col>
+                            <Col xs={12}>
+
                             <Container>
                                 <Row>
                                     <Col sm={12}>
@@ -133,6 +135,7 @@ class GroceryList extends React.Component {
                                     </Col>
                                 </Row>
                             </Container>
+                            </Col>
                         </Row>
                 </Container>
         );
