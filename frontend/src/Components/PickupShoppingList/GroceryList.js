@@ -110,7 +110,6 @@ class GroceryList extends React.Component {
                             </Container>
                             </Col>
                             <Col xs={12}>
-
                             <Container>
                                 <Row>
                                     <Col sm={12}>
@@ -118,13 +117,11 @@ class GroceryList extends React.Component {
                                             <InputGroup.Prepend>
                                                 <Button 
                                                     variant="outline-secondary" 
-                                                    id="add-item"
                                                     disabled = {numItems >= 20}
                                                     onClick={() => this.handleAddItem(this.state.newItem, this.state.currentItems)}
                                                 >+</Button>
                                             </InputGroup.Prepend>
                                             <FormControl 
-                                                aria-describedby="add-item" 
                                                 placeholder="Add Item"
                                                 onChange={this.handleChange}
                                                 disabled = {numItems >= 20}

@@ -56,7 +56,7 @@ class PickupShoppingList extends React.Component {
                 </Row>
                 <Row className="item">
                     <Col sm={12}>
-                        <Label htmlFor="pickupList" className="form-row-content">
+                        <Label className="form-row-content">
                             <h4>
                                 <b>What items do you need picked up?</b><br/>
                             </h4>
@@ -72,7 +72,6 @@ class PickupShoppingList extends React.Component {
                 <Row className="item">
                     <Col xs={12} >
                         <Label 
-                            htmlFor="fridge" 
                             className="form-row-content"
                         >
                             <h4><b>Are any items on your list refrigerated or frozen?</b></h4>

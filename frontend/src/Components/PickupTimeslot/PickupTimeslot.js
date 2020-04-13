@@ -36,7 +36,7 @@ class PickupTimeslot extends React.Component {
         // 1. timeslot is during the store's opening hours
         // 2. timeslot is NOT during any special hours (i.e. senior hours)
         // 3. ONLY FOR REGULAR (NOT PICKUP) CUSTOMER: timeslot does not have full capacity (based on our signups)
-        return [[720, 840], [975, 1080]];
+        return [[720, 840], [975, 1080]]; // example: time ranges of available hours (in minutes)
     }
 
     handleSubmit(){
@@ -45,6 +45,12 @@ class PickupTimeslot extends React.Component {
     }
 
     render(){
+        const date = new Date();
+        const month = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
+        const day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
+        const dow = new SimpleDateFormat("EEEE").format(date);
+        const dateString = `${dow} ${month} ${day}`;
+
         return(
             <Container className="container-content">
                 <Row>
@@ -63,8 +69,7 @@ class PickupTimeslot extends React.Component {
                 </Row>
                 <Row className="row-content">
                     <Col xs={12}>
-                        <h4><b>Friday March 17th</b></h4> 
-                        {/* TODO: use the timezone of the store selected on the previous page and the date returned by new Date function, standardize both and calculate the final date */}
+                        <h4><b>{dateString }}</b></h4> 
                     </Col>
                 </Row>
                 <Row className="row-content">

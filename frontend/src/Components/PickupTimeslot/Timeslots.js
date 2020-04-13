@@ -17,8 +17,12 @@ class TimeSlots extends React.Component {
     getTimeSlots() {
         const availableTimes = this.props.availableTimes;
         const availableTimeslots = [];
+
         var pos = 0;
         var index = true;
+
+        // Creating array of timeslot objects to display in the timeslot list based on the time ranges passed
+        // as the props to the TimeSlots component
         for (var i = availableTimes[pos][0]; i < availableTimes[availableTimes.length - 1][1]; i = i + 15) {
             if (i >= availableTimes[pos][1]) {
                 pos += 1;
