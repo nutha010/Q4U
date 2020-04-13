@@ -48,7 +48,7 @@ class PickupTimeslot extends React.Component {
         const date = new Date();
         const month = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
         const day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
-        const dow = new SimpleDateFormat("EEEE").format(date);
+        const dow = new Intl.DateTimeFormat('en-US', { weekday: 'long'}).format(date);
         const dateString = `${dow} ${month} ${day}`;
 
         return(
@@ -69,7 +69,7 @@ class PickupTimeslot extends React.Component {
                 </Row>
                 <Row className="row-content">
                     <Col xs={12}>
-                        <h4><b>{dateString }}</b></h4> 
+                        <h4><b>{dateString}</b></h4> 
                     </Col>
                 </Row>
                 <Row className="row-content">
