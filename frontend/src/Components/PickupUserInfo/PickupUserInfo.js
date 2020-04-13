@@ -2,7 +2,7 @@ import React from 'react';
 import {Container, Row, Col, Button, Form} from 'react-bootstrap';
 import {Label} from 'reactstrap';
 import {Link} from '@reach/router';
-import './PickupCustomerForm/PickupCustomerForm.css';
+import './PickupUserInfo.css';
 
 
 class PickupUserInfo extends React.Component {
@@ -23,11 +23,11 @@ class PickupUserInfo extends React.Component {
     }
 
     handleSubmit(){
-        console.log(this.state.over60Category);
-        console.log(this.state.immuneCompCategory);
-        console.log(this.state.underlyingCategory);
-        console.log(this.state.other.selected);
-        console.log(this.state.other.reason);
+        console.log("Over 60: " + this.state.over60Category);
+        console.log("immunocompromised: " + this.state.immuneCompCategory);
+        console.log("underlying health condition that concerns you: " + this.state.underlyingCategory);
+        console.log("other: " + this.state.other.selected);
+        console.log("reason: " + this.state.other.reason);
     }
 
     render(){
@@ -36,7 +36,6 @@ class PickupUserInfo extends React.Component {
                 <Row className="item">
                     <Col md={{span: 9, offset: 2}}>
                         <Label 
-                            htmlFor="fridge" 
                             className="form-row-content"
                         >
                             <h4><b>Are you one or more of the following?</b> (Optional)</h4>
@@ -88,9 +87,9 @@ class PickupUserInfo extends React.Component {
                         </Container>
                     </Col>
                 </Row>
-                <Row className="submit-button">
-                    <Button className="next-button" onClick={this.handleSubmit}>
-                        <Link to="/pickup-user-info" className="next-button-link">Complete pickup request</Link>
+                <Row className="item-button">
+                    <Button className="submit-button" onClick={this.handleSubmit}>
+                        <Link to="/pickup-user-info" className="submit-button-link">Complete pickup request</Link>
                     </Button>
                 </Row>
             </Container>

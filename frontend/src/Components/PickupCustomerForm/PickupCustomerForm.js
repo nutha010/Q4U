@@ -4,7 +4,7 @@ import GroceryList from './GroceryList';
 import OrderInfoCard from './OrderInfoCard';
 import {Container, Row, Col, Button} from 'react-bootstrap';
 import {Label} from 'reactstrap';
-import {Link} from '@reach/router'
+import {Link} from '@reach/router';
 
 const exampleStore = {
     name: "Super Market",
@@ -44,8 +44,6 @@ class PickupShoppingList extends React.Component {
         console.log("Shopping List: ");
         console.log(this.state.shoppingList);
         console.log("Any refrigeration items? " + this.state.refrigerated);
-        console.log(this.props.location);
-        //this.props.history.push("pickup-user-info");
     }
 
     render(){

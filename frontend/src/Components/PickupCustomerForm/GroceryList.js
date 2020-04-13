@@ -2,7 +2,7 @@ import React from 'react';
 import './PickupCustomerForm.css';
 import { findDOMNode } from "react-dom";
 
-import {Container, Row, Col, Label, Button, InputGroup, Table, FormControl} from 'react-bootstrap';
+import {Container, Row, Col, Button, InputGroup,FormControl} from 'react-bootstrap';
 
 class GroceryList extends React.Component {
 
