@@ -13,7 +13,7 @@ import Page2 from "./Views/Page2";
 import Error from "./Views/Error";
 
 // Components
-import PickupShoppingList from "./Components/PickupCustomerForm/PickupCustomerForm";
+import PickupShoppingList from "./Components/PickupShoppingList/PickupShoppingList";
 import PickupTimeslot from "./Components/PickupTimeslot/PickupTimeslot";
 import PickupUserInfo from "./Components/PickupUserInfo/PickupUserInfo";
 

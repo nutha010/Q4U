@@ -1,5 +1,5 @@
 import React from 'react';
-import './PickupCustomerForm.css';
+import './PickupShoppingList.css';
 import GroceryList from './GroceryList';
 import OrderInfoCard from './OrderInfoCard';
 import {Container, Row, Col, Button} from 'react-bootstrap';

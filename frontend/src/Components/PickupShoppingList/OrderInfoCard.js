@@ -1,5 +1,5 @@
 import React from 'react';
-import './PickupCustomerForm.css';
+import './PickupShoppingList.css';
 import {Card, Row, Container, Col} from 'react-bootstrap';
 
 export default function OrderInfoCard(props) {
