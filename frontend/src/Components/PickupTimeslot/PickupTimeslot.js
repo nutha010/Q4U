@@ -1,15 +1,19 @@
 import React from 'react';
 import {Container, Row, Col, Button} from 'react-bootstrap';
+import {Link} from '@reach/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
 import StoreInfoCard from './StoreInfoCard';
 import Timeslots from './Timeslots';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {Link} from '@reach/router';
 import './PickupTimeslot.css';
+
+library.add(faClock);
 
 const exampleStore = {
     name: "Super Market",
     address: "123 E Green St. Champaign, IL",
-    hours: [9, 18],
+    hours: [9, 22],
     distance: 6
 };
 
@@ -27,7 +31,7 @@ class PickupTimeslot extends React.Component {
 
     getSelectedTimeslot(timeslot){
         this.setState({
-            selectedTimeslot: timeslot.timeInMinutes,
+            selectedTimeslot: timeslot && timeslot.timeInMinutes,
         });
     }
 
@@ -36,12 +40,17 @@ class PickupTimeslot extends React.Component {
         // 1. timeslot is during the store's opening hours
         // 2. timeslot is NOT during any special hours (i.e. senior hours)
         // 3. ONLY FOR REGULAR (NOT PICKUP) CUSTOMER: timeslot does not have full capacity (based on our signups)
-        return [[720, 840], [975, 1080]]; // example: time ranges of available hours (in minutes)
+        return [[720, 840], [975, 1320]]; // example: time ranges of available hours (in minutes)
     }
 
     handleSubmit(){
-        console.log("Timeslot: ");
-        console.log(this.state.selectedTimeslot);
+        if (this.state.selectedTimeslot){
+            console.log("Timeslot: ");
+            console.log(this.state.selectedTimeslot);
+        }
+        else {
+            alert("You need to select a pickup timeslot before proceeding to the next step.");
+        }
     }
 
     render(){
@@ -82,7 +91,7 @@ class PickupTimeslot extends React.Component {
                 </Row>
                 <Row className="next-button-row">
                     <Button className="next-button" onClick={this.handleSubmit}>
-                        <Link to="/pickup-shopping-list" className="next-button-link">Next</Link>
+                        <Link to={this.state.selectedTimeslot ? "/pickup-shopping-list" : "/pickup-timeslot"} className="next-button-link">Next</Link>
                     </Button>
                 </Row>
             </Container>

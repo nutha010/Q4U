@@ -1,6 +1,5 @@
 import React from 'react';
 import {Container, Row, Col, Button, Form} from 'react-bootstrap';
-import {Label} from 'reactstrap';
 import {Link} from '@reach/router';
 import './PickupUserInfo.css';
 
@@ -35,11 +34,11 @@ class PickupUserInfo extends React.Component {
             <Container>
                 <Row className="item">
                     <Col md={{span: 9, offset: 2}}>
-                        <Label 
+                        <label 
                             className="form-row-content"
                         >
                             <h4><b>Are you one or more of the following?</b> (Optional)</h4>
-                        </Label>
+                        </label>
                     </Col>
                     <Col xs={12}> 
                         <Container>

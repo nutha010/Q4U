@@ -1,17 +1,21 @@
 import React from 'react';
+import {Container, Row, Col} from 'react-bootstrap';
 import './PickupTimeslot.css';
-
-import {Container, Row, Col, Form} from 'react-bootstrap';
 
 class TimeSlots extends React.Component {
 
     constructor(props){
         super(props)
         this.state = {
-            selectedTime: null
+            selectedTime: null,
+            timeslots: []
         }
         this.handleChange = this.handleChange.bind(this);
         this.getTimeSlots = this.getTimeSlots.bind(this);
+    }
+
+    componentDidMount(){
+        this.getTimeSlots();
     }
 
     getTimeSlots() {
@@ -20,6 +24,7 @@ class TimeSlots extends React.Component {
 
         var pos = 0;
         var index = true;
+        var id = 0
 
         // Creating array of timeslot objects to display in the timeslot list based on the time ranges passed
         // as the props to the TimeSlots component
@@ -28,11 +33,22 @@ class TimeSlots extends React.Component {
                 pos += 1;
             }
             if (i >= availableTimes[pos][0] && i < availableTimes[pos][1]) {
-                availableTimeslots.push({ id: (index ? '1' : '0'), timeInMinutes: i });
+                availableTimeslots.push({ id: id, styleId: (index ? '1' : '0'), timeInMinutes: i, selected: false });
                 index = !index;
+                id ++;
             }
         }
-        return availableTimeslots;
+
+        //const now = new Date()//new Date();
+        var now = new Date();
+        now.setHours(7);
+        now.setMinutes(0); 
+        const currentTime = now.getMinutes() + now.getHours()*60;
+        console.log("Current time: " + currentTime);
+        const availableTimeslotsFiltered = availableTimeslots.filter(timeslot => timeslot.timeInMinutes >= currentTime + 60);
+        this.setState({
+            timeslots: availableTimeslotsFiltered
+        });
     }
 
     convertToHrsMins(time){
@@ -43,36 +59,62 @@ class TimeSlots extends React.Component {
     }
 
     handleChange(timeslot){
-        if (this.state.selectedTime === timeslot.timeInMinutes) {
+        var newTimeslot = null;
+        if (this.state.selectedTime === null) {
             this.setState({
-                selectedTime: null
+                selectedTime: timeslot,
+                timeslots: this.state.timeslots.map(item => {
+                    if(item.id === timeslot.id) {
+                        newTimeslot = item;
+                        return { id: item.id, styleId: item.styleId, timeInMinutes: item.timeInMinutes, selected: true }
+                    }
+                    else return { id: item.id, styleId: item.styleId, timeInMinutes: item.timeInMinutes, selected: false }
+                })
+            });
+        }
+        else if (this.state.selectedTime.id === timeslot.id) {
+            this.setState({
+                selectedTime: null,
+                timeslots: this.state.timeslots.map(item => {
+                    return { id: item.id, styleId: item.styleId, timeInMinutes: item.timeInMinutes, selected: false }
+                })
             });
         }
         else {
             this.setState({
-                selectedTime: timeslot.timeInMinutes
+                selectedTime: timeslot,
+                timeslots: this.state.timeslots.map(item => {
+                    if(item.id === timeslot.id) {
+                        newTimeslot = item;
+                        return { id: item.id, styleId: item.styleId, timeInMinutes: item.timeInMinutes, selected: true }
+                    }
+                    else if (item.id === this.state.selectedTime.id) return { id: item.id, styleId: item.styleId, timeInMinutes: item.timeInMinutes, selected: false }
+                    else return { id: item.id, styleId: item.styleId, timeInMinutes: item.timeInMinutes, selected: false }
+                })
             });
         }
-        this.props.getSelectedTimeslot(timeslot);
+        this.props.getSelectedTimeslot(newTimeslot);
+        console.log(newTimeslot);
     }
 
     render(){
-        const timeslotsOpen = this.getTimeSlots();
-        const hoursToDisplay = (timeslotsOpen).map((item) => {
+        const hoursToDisplay = (this.state.timeslots).map((item) => {
+            const isSelected = item.selected ? "-selected" : "";
             return (
-                <Row id={"hours-table-item-"+item.id} className="hours-table-item">
-                    <Col sm={1} xs={2}>                                    
-                        <Form.Check 
-                            type={'radio'}
-                            onClick={() => this.handleChange(item)}
-                            name="time"
-                            
-                        />
-                    </Col>
-                    <Col sm={11} xs={10}>{this.convertToHrsMins(item.timeInMinutes)}</Col>
+                <Row id={"hours-table-item-"+item.styleId+isSelected} className="hours-table-item" onClick={() => this.handleChange(item)}>
+                        {/* <Col sm={1} xs={2}>   
+                                
+                            <Form.Check 
+                                type={'radio'}
+                                onClick={() => this.handleChange(item)}
+                                name="time"
+                            />
+                        </Col> */}
+                        <Col sm={12} xs={12}>{this.convertToHrsMins(item.timeInMinutes)}</Col>
                 </Row>
             );
         });
+        // const noAvailableHours =
 
         return (
             <Container className="hours-table">

@@ -17,12 +17,6 @@ import PickupShoppingList from "./Components/PickupShoppingList/PickupShoppingLi
 import PickupTimeslot from "./Components/PickupTimeslot/PickupTimeslot";
 import PickupUserInfo from "./Components/PickupUserInfo/PickupUserInfo";
 
-// Icons
-import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
-import { library } from "@fortawesome/fontawesome-svg-core";
-
-library.add(faMapMarkerAlt, faClock);
-
 function App() {
   return (
     <Container className="App">

@@ -1,10 +1,9 @@
 import React from 'react';
-import './PickupShoppingList.css';
+import {Container, Row, Col, Button} from 'react-bootstrap';
+import {Link} from '@reach/router';
 import GroceryList from './GroceryList';
 import OrderInfoCard from './OrderInfoCard';
-import {Container, Row, Col, Button} from 'react-bootstrap';
-import {Label} from 'reactstrap';
-import {Link} from '@reach/router';
+import './PickupShoppingList.css';
 
 const exampleStore = {
     name: "Super Market",
@@ -56,12 +55,12 @@ class PickupShoppingList extends React.Component {
                 </Row>
                 <Row className="item">
                     <Col sm={12}>
-                        <Label className="form-row-content">
+                        <label className="form-row-content">
                             <h4>
                                 <b>What items do you need picked up?</b><br/>
                             </h4>
                             <h5><i>Maximum of 20 items. Specify the quantity for each item.</i></h5>
-                        </Label>
+                        </label>
                     </Col>
                     <Col sm={12} >
                         <GroceryList 
@@ -71,11 +70,9 @@ class PickupShoppingList extends React.Component {
                 </Row>
                 <Row className="item">
                     <Col xs={12} >
-                        <Label 
-                            className="form-row-content"
-                        >
+                        <label className="form-row-content">
                             <h4><b>Are any items on your list refrigerated or frozen?</b></h4>
-                        </Label>
+                        </label>
                     </Col>
 
                     <Col xs={12}> 

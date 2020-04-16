@@ -1,9 +1,12 @@
 import React from 'react';
 import {Card, Row, Container, Col, Button} from 'react-bootstrap';
 import {Link} from '@reach/router';
-import './PickupTimeslot.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import './PickupTimeslot.css';
 
+library.add(faMapMarkerAlt);
 
 export default function StoreInfoCard(props) {
     return(

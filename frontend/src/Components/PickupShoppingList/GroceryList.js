@@ -1,8 +1,7 @@
 import React from 'react';
-import './PickupShoppingList.css';
 import { findDOMNode } from "react-dom";
-
 import {Container, Row, Col, Button, InputGroup,FormControl} from 'react-bootstrap';
+import './PickupShoppingList.css';
 
 class GroceryList extends React.Component {
 
@@ -40,12 +39,6 @@ class GroceryList extends React.Component {
         const repeats = this.state.currentItems.filter(item => item.description.toLowerCase() === newItem.toLowerCase())
         if (repeats.length > 0){
             error.errMessage = "The item " + newItem.toLowerCase() + " already exists in your shopping list.";
-            error.foundErr = true;
-        }
-
-        // Check that the input isn't blank
-        if (newItem.length === 0) {
-            error.errMessage = "You didn't enter any item.";
             error.foundErr = true;
         }
 
@@ -117,7 +110,7 @@ class GroceryList extends React.Component {
                                             <InputGroup.Prepend>
                                                 <Button 
                                                     variant="outline-secondary" 
-                                                    disabled = {numItems >= 20}
+                                                    disabled = {numItems >= 20 || this.state.newItem === ""}
                                                     onClick={() => this.handleAddItem(this.state.newItem, this.state.currentItems)}
                                                 >+</Button>
                                             </InputGroup.Prepend>
@@ -126,7 +119,7 @@ class GroceryList extends React.Component {
                                                 onChange={this.handleChange}
                                                 disabled = {numItems >= 20}
                                                 value={this.state.newItem}
-                                                onKeyPress={(e) => { if(e.key === "Enter") { this.handleAddItem(this.state.newItem, this.state.currentItems) }}}
+                                                onKeyPress={(e) => { if(e.key === "Enter" && this.state.newItem !== "") { this.handleAddItem(this.state.newItem, this.state.currentItems) }}}
                                             />
                                         </InputGroup>                        
                                     </Col>
