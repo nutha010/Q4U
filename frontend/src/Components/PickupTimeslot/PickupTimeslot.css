@@ -59,16 +59,6 @@
     background-color: lightgrey;
 }
 
-/* #hours-table-item-0:hover {
-    background-color: rgba(24, 92, 218, 0.945);
-    color:white;
-}
-
-#hours-table-item-1:hover {
-    background-color: rgba(24, 92, 218, 0.945);
-    color:white;
-} */
-
 #hours-table-item-0-selected {
     background-color: rgba(24, 92, 218, 0.945);
     color:white;

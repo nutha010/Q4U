@@ -39,12 +39,8 @@ class TimeSlots extends React.Component {
             }
         }
 
-        //const now = new Date()//new Date();
-        var now = new Date();
-        now.setHours(7);
-        now.setMinutes(0); 
+        const now = new Date();
         const currentTime = now.getMinutes() + now.getHours()*60;
-        console.log("Current time: " + currentTime);
         const availableTimeslotsFiltered = availableTimeslots.filter(timeslot => timeslot.timeInMinutes >= currentTime + 60);
         this.setState({
             timeslots: availableTimeslotsFiltered
@@ -94,7 +90,6 @@ class TimeSlots extends React.Component {
             });
         }
         this.props.getSelectedTimeslot(newTimeslot);
-        console.log(newTimeslot);
     }
 
     render(){
@@ -102,20 +97,10 @@ class TimeSlots extends React.Component {
             const isSelected = item.selected ? "-selected" : "";
             return (
                 <Row id={"hours-table-item-"+item.styleId+isSelected} className="hours-table-item" onClick={() => this.handleChange(item)}>
-                        {/* <Col sm={1} xs={2}>   
-                                
-                            <Form.Check 
-                                type={'radio'}
-                                onClick={() => this.handleChange(item)}
-                                name="time"
-                            />
-                        </Col> */}
-                        <Col sm={12} xs={12}>{this.convertToHrsMins(item.timeInMinutes)}</Col>
+                    <Col sm={12} xs={12}>{this.convertToHrsMins(item.timeInMinutes)}</Col>
                 </Row>
             );
         });
-        // const noAvailableHours =
-
         return (
             <Container className="hours-table">
                 {hoursToDisplay}
