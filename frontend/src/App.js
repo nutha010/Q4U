@@ -11,11 +11,9 @@ import Landing from "./Views/Landing";
 import Page2 from "./Views/Page2";
 import Error from "./Views/Error";
 import StoreLocator from "./Views/StoreLocator";
-
-// Components
-import PickupShoppingList from "./Components/PickupShoppingList/PickupShoppingList";
-import PickupTimeslot from "./Components/PickupTimeslot/PickupTimeslot";
-import PickupUserInfo from "./Components/PickupUserInfo/PickupUserInfo";
+import PickupShoppingListPage from './Views/PickupShoppingListPage';
+import PickupTimeslotPage from './Views/PickupTimeslotPage';
+import PickupUserInfoPage from './Views/PickupUserInfoPage';
 
 function App() {
   return (
@@ -23,9 +21,9 @@ function App() {
       <Router>
         <Landing path="/" />
         <Page2 path="/2" />
-        <PickupShoppingList path="/pickup-shopping-list" />
-        <PickupTimeslot path="/pickup-timeslot" />
-        <PickupUserInfo path="/pickup-user-info" />
+        <PickupShoppingListPage path="/pickup-shopping-list" />
+        <PickupTimeslotPage path="/pickup-timeslot" />
+        <PickupUserInfoPage path="/pickup-user-info" />
         <StoreLocator path="/locator" />
         <Error default/>
       </Router>
