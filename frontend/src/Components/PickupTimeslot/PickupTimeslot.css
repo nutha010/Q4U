@@ -1,0 +1,89 @@
+.store-info-header {
+    text-align: center;
+    padding-top: 20px;
+}
+.store-info-card-item {
+    padding-bottom: 10px;
+}
+
+.change-button {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.change-button-link {
+    color: white
+}
+
+.change-button-link:hover {
+    color: white
+}
+
+.store-info-card {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.row-content {
+    padding: 20px;
+}
+
+.row-content-text {
+    text-align: center;
+}
+
+.container-content {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.hours-table {
+    height: 500px;
+    overflow-y: scroll;
+    display: block;
+    border: 2px solid lightgrey;
+}
+
+.hours-table-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    cursor: pointer;
+}
+
+#hours-table-item-0 {
+    background-color: white;
+}
+
+#hours-table-item-1 {
+    background-color: lightgrey;
+}
+
+#hours-table-item-0-selected {
+    background-color: rgba(24, 92, 218, 0.945);
+    color:white;
+}
+
+#hours-table-item-1-selected {
+    background-color: rgba(24, 92, 218, 0.945);
+    color:white;
+}
+
+.next-button-row {
+    padding-bottom: 50px;
+    padding-top: 50px;
+    justify-content: flex-end;
+}
+
+.next-button {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.next-button-link {
+    color: white
+}
+
+.next-button-link:hover {
+    color: white
+}

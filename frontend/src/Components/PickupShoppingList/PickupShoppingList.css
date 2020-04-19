@@ -1,0 +1,74 @@
+.content {
+    margin:0px auto;
+    padding-bottom: 50px;
+    text-align: center;
+}
+
+.item {
+    padding-bottom: 30px;
+    padding-top: 20px;
+}
+
+.order-info-card-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.form-row-content {
+    margin:0px auto;
+    text-align: center;
+}
+
+.item-button {
+    justify-content: flex-end;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.next-button {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.next-button-link {
+    color: white
+}
+
+.next-button-link:hover {
+    color: white
+}
+
+.existing-items {
+    height: 300px;
+    overflow-y: scroll;
+    display: block;
+}
+
+.shopping-list-table {
+    border: 1px solid lightgrey;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.shopping-list-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+.shopping-list-item-description {
+    overflow-x: scroll;
+}
+
+.shopping-list-item:hover {
+    background-color: lightgrey;
+}
+
+.delete-button {
+    padding: 0px 5px 0px 5px;
+}
+
+.health-status-row {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

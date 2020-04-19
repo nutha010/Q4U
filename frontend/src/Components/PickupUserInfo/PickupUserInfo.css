@@ -1,0 +1,33 @@
+.item {
+    padding-bottom: 30px;
+    padding-top: 20px;
+}
+
+.form-row-content {
+    margin:0px auto;
+    text-align: center;
+}
+
+.submit-button {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.item-button {
+    justify-content: center;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.submit-button-link {
+    color: white
+}
+
+.submit-button-link:hover {
+    color: white
+}
+
+.health-status-row {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
